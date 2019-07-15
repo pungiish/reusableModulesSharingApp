@@ -8,9 +8,7 @@ import { HighlightModule } from 'ngx-highlightjs';
 import { routes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { hljsLanguages } from './app.module';
-import { FooterComponent } from './components/footer/footer.component';
 import { HeroComponent } from './components/hero/hero.component';
-import { HomeContentComponent } from './components/home-content/home-content.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { CallbackComponent } from './containers/callback/callback.component';
@@ -31,10 +29,8 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         CallbackComponent,
-        FooterComponent,
         HeroComponent,
         HomeComponent,
-        HomeContentComponent,
         LoadingComponent,
         NavBarComponent,
         ProfileComponent

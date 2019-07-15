@@ -27,5 +27,7 @@ export class ComponentsComponent implements OnInit {
 		console.log(event);
 
 	}
-
+	selectedComponent (e) {
+		console.log(e)
+	}
 }

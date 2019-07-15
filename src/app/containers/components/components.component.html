@@ -33,10 +33,23 @@
 			<div *ngIf=login>
 				<div class="container2">
 					<div class="flex-item">
-						<custom-login></custom-login>
+						<ng-template #popContent>
+							<label for="colour">Background colour:</label>
+							<select name="choice">
+									<option value="blue" selected>Blue</option>
+									<option value="green">Green</option>
+									<option value="red">Red</option>
+								  </select>
+						</ng-template>
+						<button type="button" class="btn clickable" (click)="selectedComponent('login1')"
+							placement="top" [ngbPopover]="popContent" popoverTitle="Customize" [autoClose]="false">
+							<custom-login></custom-login>
+						</button>
 					</div>
 					<div class="flex-item">
-						<custom-login></custom-login>
+						<button class="btn clickable" (click)="selectedComponent('login2')" placement="top" [ngbPopover]="popContent" popoverTitle="Customize" [autoClose]="false">
+							<custom-login></custom-login>
+						</button>
 					</div>
 				</div>
 			</div>
