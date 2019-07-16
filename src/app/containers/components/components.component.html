@@ -29,25 +29,29 @@
 			</ul>
 		</aside>
 		<div class="col main">
-			<h1 *ngIf=!login>Choose a custom Web Component</h1>
-			<div *ngIf=login>
+			<h1 *ngIf=!type>Choose a custom Web Component</h1>
+			<div *ngIf="type == 'login'">
 				<div class="container2">
 					<div class="flex-item">
+
+						<!-- Template of the modal -->
 						<ng-template #popContent>
 							<label for="colour">Background colour:</label>
-							<select name="choice">
-									<option value="blue" selected>Blue</option>
-									<option value="green">Green</option>
-									<option value="red">Red</option>
-								  </select>
+							<select [ngModel]="selectedValue" (ngModelChange)="onSelectedChange($event)" class="form-control input-sm">
+								<option *ngFor="let colour of colours">{{colour}}</option>
+							</select>
+							<button type="button" class="btn clickable" (click)="apply()">Apply</button>
 						</ng-template>
-						<button type="button" class="btn clickable" (click)="selectedComponent('login1')"
+						<!-- !Template of the modal-->
+
+						<button type="button" class="btn clickable" (click)="selectedComponent('custom-login')"
 							placement="top" [ngbPopover]="popContent" popoverTitle="Customize" [autoClose]="false">
 							<custom-login></custom-login>
 						</button>
 					</div>
 					<div class="flex-item">
-						<button class="btn clickable" (click)="selectedComponent('login2')" placement="top" [ngbPopover]="popContent" popoverTitle="Customize" [autoClose]="false">
+						<button class="btn clickable" (click)="selectedComponent('login2')" placement="top"
+							[ngbPopover]="popContent" popoverTitle="Customize" [autoClose]="false">
 							<custom-login></custom-login>
 						</button>
 					</div>

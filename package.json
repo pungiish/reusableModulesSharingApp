@@ -12,6 +12,7 @@
   "private": true,
   "dependencies": {
     "concat": "^1.0.3",
+    "file-saver": "^2.0.2",
     "fs-extra": "^8.1.0"
   },
   "devDependencies": {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
+import { DataService } from 'src/app/services/data-service.service';
 import { Router } from '@angular/router';
 
 import { User } from "src/app/models/user-model";
@@ -10,7 +11,7 @@ import { User } from "src/app/models/user-model";
 	styleUrls: ['./callback.component.css']
 })
 export class CallbackComponent implements OnInit {
-	constructor (private authService: AuthService, private router: Router) { }
+	constructor (private authService: AuthService, private router: Router, private data: DataService) { }
 
 	async ngOnInit () {
 		const client = await this.authService.getAuth0Client();
@@ -22,9 +23,27 @@ export class CallbackComponent implements OnInit {
 		this.authService.isAuthenticated.next(await client.isAuthenticated());
 
 		const userInfo = await client.getUser();
-		let user = new User(userInfo.name, userInfo.family_name, userInfo.sub);
-		console.log(user);
+		// console.log(userInfo);
 
+		const user: User = new User(userInfo.given_name, userInfo.family_name, userInfo.sub);
+		/* this.data.get("users")
+			.subscribe(data => {
+				// console.log(data);
+
+			},
+				(error) => {
+					console.log(error);
+
+				})
+ */
+		this.data.create(user)
+			.subscribe(data => {
+				// console.log(data);
+			},
+				(error) => {
+					console.log(error);
+
+				})
 
 
 		this.router.navigate([targetRoute]);

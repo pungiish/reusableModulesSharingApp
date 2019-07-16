@@ -2,6 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HighlightModule } from 'ngx-highlightjs';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+
 import json from 'highlight.js/lib/languages/json';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -15,32 +18,36 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { ProfileComponent } from './containers/profile/profile.component';
 import { ComponentsComponent } from './containers/components/components.component'
 
-export function hljsLanguages() {
-  return [{ name: 'json', func: json }];
+import { EnvironmentUrlService } from 'src/app/services/environment-url-service.service'
+import { DataService } from 'src/app/services/data-service.service'
+export function hljsLanguages () {
+	return [{ name: 'json', func: json }];
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    NavBarComponent,
-    HeroComponent,
-    CallbackComponent,
-    LoadingComponent,
-    ProfileComponent,
-    ComponentsComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule,
-    HighlightModule.forRoot({
-      languages: hljsLanguages
-    }),
-    FontAwesomeModule
-  ],
-	providers: [],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		HomeComponent,
+		NavBarComponent,
+		HeroComponent,
+		CallbackComponent,
+		LoadingComponent,
+		ProfileComponent,
+		ComponentsComponent
+	],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		NgbModule,
+		FormsModule,
+		HttpClientModule,
+		HighlightModule.forRoot({
+			languages: hljsLanguages
+		}),
+		FontAwesomeModule
+	],
+	providers: [ EnvironmentUrlService, DataService ],
+	schemas: [CUSTOM_ELEMENTS_SCHEMA],
+	bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

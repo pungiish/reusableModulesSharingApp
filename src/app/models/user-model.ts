@@ -1,11 +1,11 @@
 export class User {
-	name: string;
-	familyname: string;
-	googleID: string;
+	Name: string;
+	Familyname: string;
+	GoogleID: string;
 
 	constructor (name: string, familyname: string, googleID: string) {
-		this.name = name;
-		this.familyname = familyname;
-		this.googleID = googleID;
+		this.Name = name;
+		this.Familyname = familyname;
+		this.GoogleID = googleID;
 	}
 }
