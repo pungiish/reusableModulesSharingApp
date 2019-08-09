@@ -24,7 +24,7 @@
               "node_modules/highlight.js/styles/monokai-sublime.css"
             ],
             "scripts": [
-				"src/assets/web-components/elements.js"
+				"src/assets/elements/elements.js"
 			],
             "es5BrowserSupport": true
           },

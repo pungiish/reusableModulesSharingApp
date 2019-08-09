@@ -4,38 +4,19 @@
 			<ul class="nav flex-column">
 				<li class="nav-item">
 					<a class="nav-link active" [routerLink]="" routerLinkActive="router-link-active"
-						(click)="chooseComponent('login')">
-						Log in
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" [routerLink]="" routerLinkActive="router-link-active"
-						(click)="chooseComponent('socialsignin')">
-						Social Sign In
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" [routerLink]="" routerLinkActive="router-link-active"
-						(click)="chooseComponent('')">
-						Something Else
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" [routerLink]="" routerLinkActive="router-link-active"
-						(click)="chooseComponent('')">
-						Something Else
+						(click)="chooseComponent('box')">
+						Box Component
 					</a>
 				</li>
 			</ul>
 		</aside>
 		<div class="col main">
 			<h1 *ngIf=!type>Choose a custom Web Component</h1>
-			<div *ngIf="type == 'login'">
+			<div *ngIf="type == 'box'">
 				<div class="container2">
 					<div class="flex-item">
-
 						<!-- Template of the modal -->
-						<ng-template #popContent>
+						 <ng-template #popContent>
 							<label for="colour">Background colour:</label>
 							<select [ngModel]="selectedValue" (ngModelChange)="onSelectedChange($event)" class="form-control input-sm">
 								<option *ngFor="let colour of colours">{{colour}}</option>
@@ -43,20 +24,18 @@
 							<button type="button" class="btn clickable" (click)="apply()">Apply</button>
 						</ng-template>
 						<!-- !Template of the modal-->
-
-						<button type="button" class="btn clickable" (click)="selectedComponent('custom-login')"
+						 <button type="button" class="btn clickable" (click)="selectedComponent('box')"
 							placement="top" [ngbPopover]="popContent" popoverTitle="Customize" [autoClose]="false">
-							<custom-login></custom-login>
+						<element-el style="margin:100px"></element-el>
 						</button>
 					</div>
-					<div class="flex-item">
-						<button class="btn clickable" (click)="selectedComponent('login2')" placement="top"
-							[ngbPopover]="popContent" popoverTitle="Customize" [autoClose]="false">
-							<custom-login></custom-login>
-						</button>
-					</div>
+				</div>
+				<div *ngIf=url>
+					Use <span style="color: blue">&#60;script src={{url}}>&#60;/script></span> within body tags
+				<br>use <span style="color: blue">&#60;element-el style="margin:100px">&#60;/element-el> </span>Where you want to use it.
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+

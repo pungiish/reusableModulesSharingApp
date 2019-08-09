@@ -25,17 +25,10 @@ export class CallbackComponent implements OnInit {
 		const userInfo = await client.getUser();
 		// console.log(userInfo);
 
-		const user: User = new User(userInfo.given_name, userInfo.family_name, userInfo.sub);
-		/* this.data.get("users")
-			.subscribe(data => {
-				// console.log(data);
+		const user: User = new User(userInfo.email, userInfo.given_name, userInfo.family_name, userInfo.sub);
+		console.log(user);
 
-			},
-				(error) => {
-					console.log(error);
-
-				})
- */
+		//check if user is already authenticated!
 		this.data.create(user)
 			.subscribe(data => {
 				// console.log(data);

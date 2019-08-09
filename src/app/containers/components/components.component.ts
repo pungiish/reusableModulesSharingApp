@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 import { DataService } from 'src/app/services/data-service.service';
-import { saveAs } from "../../../../node_modules/file-saver";
-
-import { Components } from 'src/app/models/component-model';
+import { Widget } from 'src/app/models/widget-model';
+import { WidgetService } from 'src/app/services/widget-service.service';
+import { User } from 'src/app/models/user-model';
 
 @Component({
 	selector: 'app-components',
@@ -11,19 +11,23 @@ import { Components } from 'src/app/models/component-model';
 	styleUrls: ['./components.component.css']
 })
 export class ComponentsComponent implements OnInit {
-	profile: any
+	profile: User;
 	type: string = null;
-	component: string = null;
+	widget: string = null;
 	colours: string[] = [];
 	selectedValue: string;
-	constructor (private authService: AuthService, private data: DataService) {
-		this.colours.push('red', 'green', 'blue');
+	url: string = "";
+	constructor (private authService: AuthService, private data: DataService, private widgetService: WidgetService) {
+		this.colours.push('green', 'red', 'blue');
+		this.selectedValue = this.colours[0];
 	}
 
-	async ngOnInit () {
+	ngOnInit () {
 		this.authService.profile.subscribe(profile => {
 			if (profile) {
-				this.profile = profile;
+				this.profile = new User(profile.email, profile.given_name, profile.family_name, profile.sub);
+				console.log(this.profile);
+
 				return;
 			}
 			this.profile = null;
@@ -37,41 +41,20 @@ export class ComponentsComponent implements OnInit {
 
 	}
 	// The component of type.
-	selectedComponent (component: string) {
-		this.component = component;
+	selectedComponent (widget: string) {
+		this.widget = widget;
 	}
 
 	onSelectedChange(value: string) {
 		this.selectedValue = value;
 	}
 	apply () {
-		// SEND TO SERVER
-		const component = new Components(this.selectedValue)
-		let fileName = this.component + ".js"
-		//file type extension
-		let checkFileType =  fileName.split('.').pop();
-		var fileType;
-		if(checkFileType == ".txt")
-		{
-		  fileType = "text/plain";
-		}
-		if(checkFileType == ".js")
-		{
-		  fileType = "text/js";
-		}
-		if(checkFileType == ".css")
-		{
-		  fileType = "text/css";
-		}
-		this.data.DownloadFile(component, this.component)
-		.subscribe(
-			success => {
-				console.log(success);
-					saveAs(success, this.component + checkFileType)
-				  },
-				  err => {
-					  alert("Server error while downloading file.");
-				  }
-			  );
+		const widget: Widget = new Widget(this.selectedValue, this.widget, this.profile.Email)
+		this.widgetService.create(widget)
+			.subscribe(id => {
+				this.url = "https://localhost:44351/api/widgets/" + id + ".js";
+				console.log(this.url);
+			});
+
 	}
 }
