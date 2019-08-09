@@ -25,7 +25,7 @@ export class ComponentsComponent implements OnInit {
 	ngOnInit () {
 		this.authService.profile.subscribe(profile => {
 			if (profile) {
-				this.profile = new User(profile.email, profile.given_name, profile.family_name, profile.sub);
+				this.profile = new User(profile.email, profile.given_name, profile.family_name, profile.sub, null);
 				console.log(this.profile);
 
 				return;

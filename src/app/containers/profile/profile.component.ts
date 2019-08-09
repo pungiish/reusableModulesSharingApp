@@ -10,6 +10,7 @@ import { User } from 'src/app/models/user-model';
 })
 export class ProfileComponent implements OnInit {
 	profile: any;
+	user: User;
 	profileJson: string;
 
 	constructor (private authService: AuthService, private dataService: DataService) { }
@@ -17,13 +18,17 @@ export class ProfileComponent implements OnInit {
 	ngOnInit () {
 		this.authService.profile.subscribe(profile => {
 			if (profile) {
+				this.dataService.read(profile).subscribe(ret => {
+					this.user = new User(profile.email, profile.name, profile.familyname, profile.googleID, ret.widgets)
+					console.log(this.user);
+				});
 				this.profile = profile;
-				this.profileJson = JSON.stringify(this.profile, null, 2);
-				this.profile = new User(profile.email, profile.given_name, profile.family_name, profile.sub);
+				console.log(profile);
 
-				this.profile = this.dataService.read(this.profile).subscribe(ret => console.log(ret));
-				return;
+				this.profileJson = JSON.stringify(this.profile, null, 2);
+				return
 			}
+
 			this.profile = null;
 			this.profileJson = null;
 		});

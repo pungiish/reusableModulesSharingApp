@@ -23,9 +23,7 @@ export class CallbackComponent implements OnInit {
 		this.authService.isAuthenticated.next(await client.isAuthenticated());
 
 		const userInfo = await client.getUser();
-		// console.log(userInfo);
-
-		const user: User = new User(userInfo.email, userInfo.given_name, userInfo.family_name, userInfo.sub);
+		const user: User = new User(userInfo.email, userInfo.given_name, userInfo.family_name, userInfo.sub, null);
 		console.log(user);
 
 		//check if user is already authenticated!
