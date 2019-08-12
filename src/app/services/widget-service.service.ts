@@ -15,7 +15,7 @@ export class WidgetService {
 		return this.http.post(this.env.url + "/widgets/new", body, this.headers());
 	}
 	public read (user: User): Observable<any> {
-		return this.http.get(this.env.url + "/widgets/new");
+		return this.http.get(this.env.url + "/widgets/" + user.Email);
 	}
 	private fullRoute (route: string, envAddress: string): string {
 		return `${envAddress}/${route}`;

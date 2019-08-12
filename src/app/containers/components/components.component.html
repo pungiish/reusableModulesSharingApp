@@ -1,42 +1,8 @@
-<div class="container1">
-	<div class="flex-grid">
-		<aside class="col sidebar">
-			<ul class="nav flex-column">
-				<li class="nav-item">
-					<a class="nav-link active" [routerLink]="" routerLinkActive="router-link-active"
-						(click)="chooseComponent('box')">
-						Box Component
-					</a>
-				</li>
-			</ul>
-		</aside>
-		<div class="col main">
-			<h1 *ngIf=!type>Choose a custom Web Component</h1>
-			<div *ngIf="type == 'box'">
-				<div class="container2">
-					<div class="flex-item">
-						<!-- Template of the modal -->
-						<ng-template #popContent>
-							<label for="colour">Background colour:</label>
-							<select [ngModel]="selectedValue" (ngModelChange)="onSelectedChange($event)"
-								class="form-control input-sm">
-								<option *ngFor="let colour of colours">{{colour}}</option>
-							</select>
-							<button type="button" class="btn clickable" (click)="apply()">Apply</button>
-						</ng-template>
-						<!-- !Template of the modal-->
-						<button type="button" class="btn clickable" (click)="selectedComponent('box')" placement="top"
-							[ngbPopover]="popContent" popoverTitle="Customize" [autoClose]="false">
-							<element-el [colour]="selectedValue"></element-el>
-						</button>
-					</div>
-					<div *ngIf=url>
-						Use <span style="color: blue">&#60;script src={{url}}>&#60;/script></span> within body tags
-						<br>use <span style="color: blue">&#60;element-el>&#60;/element-el>
-						</span>Where you want to use it.
-					</div>
-				</div>
-			</div>
-		</div>
+<span class="badge badge-pill badge-primary">Primary</span>
+<div class="container">
+	<div *ngFor="let widget of widgets">
+		<span *ngIf="widget.name=='box'">
+			<element-el [colour]="widget.color" style="margin: 10px"></element-el>
+		</span>
 	</div>
 </div>
