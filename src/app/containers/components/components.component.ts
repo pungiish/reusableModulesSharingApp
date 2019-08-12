@@ -3,7 +3,6 @@ import { AuthService } from '../../auth/auth.service';
 import { DataService } from 'src/app/services/data-service.service';
 import { Widget } from 'src/app/models/widget-model';
 import { WidgetService } from 'src/app/services/widget-service.service';
-import { User } from 'src/app/models/user-model';
 
 @Component({
 	selector: 'app-components',
@@ -22,6 +21,7 @@ export class ComponentsComponent implements OnInit {
 	}
 
 	ngOnInit () {
+		this.widgetService.
 	}
 
 	// Type of components.
@@ -40,8 +40,6 @@ export class ComponentsComponent implements OnInit {
 	}
 	apply () {
 		const widget: Widget = new Widget(null, this.selectedValue, this.widget, this.data.user.Email)
-		console.log(widget);
-
 		this.widgetService.create(widget)
 			.subscribe(id => {
 				this.url = "https://localhost:44351/api/widgets/" + id + ".js";

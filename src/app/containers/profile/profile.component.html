@@ -8,7 +8,7 @@
 		<div class="row" *ngIf="profileJson">
 			<pre class="rounded"><code class="json" [highlight]="profileJson"></code></pre>
 		</div>
-		<div class="row" *ngIf="widgetsJson">
+		<div class="row" *ngIf="widgetsJson && widgetsJson.length > 2">
 			<pre class="rounded"><code class="json" [highlight]="widgetsJson"></code></pre>
 		</div>
 	</div>

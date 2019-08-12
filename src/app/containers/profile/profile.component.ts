@@ -12,8 +12,9 @@ import { Widget } from 'src/app/models/widget-model';
 export class ProfileComponent implements OnInit {
 	profile: any;
 	user: User;
+	widgets: Widget[];
 	profileJson: string;
-	widgetsJson: any;
+	widgetsJson: string;
 
 	constructor (private authService: AuthService, private dataService: DataService) { }
 
@@ -27,9 +28,8 @@ export class ProfileComponent implements OnInit {
 						widget.script = "<script src=https://localhost:44351/api/widgets/" + widget.id + ".js></script>"
 						delete widget.id;
 					});
-					console.log(ret.widgets);
+					this.widgetsJson = JSON.stringify(ret.widgets, null, 2)
 
-					this.widgetsJson = JSON.stringify(ret.widgets, null, 1)
 				});
 				this.profile = profile;
 				this.profileJson = JSON.stringify(this.profile, null, 2);

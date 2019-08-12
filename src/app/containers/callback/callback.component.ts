@@ -26,7 +26,8 @@ export class CallbackComponent implements OnInit {
 		const user: User = new User(userInfo.email, userInfo.given_name, userInfo.family_name, userInfo.sub, null);
 		this.data.create(user)
 			.subscribe(u => {
-				this.data.user = new User(u[0].email, u[0].name, u[0].familyname, u[0].googleID, u[0].widgets)
+				this.data.user = new User(u.email, u.name, u.familyname, u.googleID, u.widgets)
+
 			});
 		this.router.navigate([targetRoute]);
 	}
