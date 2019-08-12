@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { EnvironmentUrlService } from "./environment-url-service.service";
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { User } from 'src/app/models/user-model'
 
@@ -9,11 +9,10 @@ import { User } from 'src/app/models/user-model'
 	providedIn: 'root'
 })
 export class DataService {
+	user: User;
 	constructor (private env: EnvironmentUrlService, private http: HttpClient) { }
 
 	public create (body: User): Observable<any> {
-		console.log(body);
-
 		return this.http.post(this.env.url + "/users", body, this.headers() )
 	}
 

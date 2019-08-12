@@ -1,10 +1,10 @@
 import { Widget } from './widget-model';
 
 export class User {
-	Email: string;
 	Name: string;
 	Familyname: string;
 	GoogleID: string;
+	Email: string;
 	Widgets: Widget[];
 
 	constructor (email: string, name: string, familyname: string, googleID: string, widgets: Widget[]) {

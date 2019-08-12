@@ -25,6 +25,7 @@
             ],
             "scripts": [
 				"src/assets/elements/elements.js"
+
 			],
             "es5BrowserSupport": true
           },

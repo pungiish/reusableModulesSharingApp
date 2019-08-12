@@ -17,6 +17,7 @@ h1 {
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: right;
+	align-items: center
 }
 .flex-item {
 	margin: 1rem;

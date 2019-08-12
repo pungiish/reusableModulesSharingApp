@@ -16,26 +16,27 @@
 				<div class="container2">
 					<div class="flex-item">
 						<!-- Template of the modal -->
-						 <ng-template #popContent>
+						<ng-template #popContent>
 							<label for="colour">Background colour:</label>
-							<select [ngModel]="selectedValue" (ngModelChange)="onSelectedChange($event)" class="form-control input-sm">
+							<select [ngModel]="selectedValue" (ngModelChange)="onSelectedChange($event)"
+								class="form-control input-sm">
 								<option *ngFor="let colour of colours">{{colour}}</option>
 							</select>
 							<button type="button" class="btn clickable" (click)="apply()">Apply</button>
 						</ng-template>
 						<!-- !Template of the modal-->
-						 <button type="button" class="btn clickable" (click)="selectedComponent('box')"
-							placement="top" [ngbPopover]="popContent" popoverTitle="Customize" [autoClose]="false">
-						<element-el style="margin:100px"></element-el>
+						<button type="button" class="btn clickable" (click)="selectedComponent('box')" placement="top"
+							[ngbPopover]="popContent" popoverTitle="Customize" [autoClose]="false">
+							<element-el [colour]="selectedValue"></element-el>
 						</button>
 					</div>
-				</div>
-				<div *ngIf=url>
-					Use <span style="color: blue">&#60;script src={{url}}>&#60;/script></span> within body tags
-				<br>use <span style="color: blue">&#60;element-el style="margin:100px">&#60;/element-el> </span>Where you want to use it.
+					<div *ngIf=url>
+						Use <span style="color: blue">&#60;script src={{url}}>&#60;/script></span> within body tags
+						<br>use <span style="color: blue">&#60;element-el>&#60;/element-el>
+						</span>Where you want to use it.
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-

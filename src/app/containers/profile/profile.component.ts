@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 import { DataService } from 'src/app/services/data-service.service';
 import { User } from 'src/app/models/user-model';
+import { Widget } from 'src/app/models/widget-model';
 
 @Component({
 	selector: 'app-profile',
@@ -12,27 +13,32 @@ export class ProfileComponent implements OnInit {
 	profile: any;
 	user: User;
 	profileJson: string;
+	widgetsJson: any;
 
 	constructor (private authService: AuthService, private dataService: DataService) { }
 
 	ngOnInit () {
 		this.authService.profile.subscribe(profile => {
 			if (profile) {
-				this.dataService.read(profile).subscribe(ret => {
-					this.user = new User(profile.email, profile.name, profile.familyname, profile.googleID, ret.widgets)
-					console.log(this.user);
+				this.user = new User(profile.email, profile.given_name, profile.family_name, profile.sub, []);
+				this.dataService.read(this.user).subscribe(ret => {
+					this.user.Widgets = ret.widgets;
+					ret.widgets.forEach(widget => {
+						widget.script = "<script src=https://localhost:44351/api/widgets/" + widget.id + ".js></script>"
+						delete widget.id;
+					});
+					console.log(ret.widgets);
+
+					this.widgetsJson = JSON.stringify(ret.widgets, null, 1)
 				});
 				this.profile = profile;
-				console.log(profile);
-
 				this.profileJson = JSON.stringify(this.profile, null, 2);
+
 				return
 			}
-
 			this.profile = null;
 			this.profileJson = null;
 		});
-
 
 	}
 }

@@ -11,7 +11,6 @@ import { User } from 'src/app/models/user-model';
 	styleUrls: ['./components.component.css']
 })
 export class ComponentsComponent implements OnInit {
-	profile: User;
 	type: string = null;
 	widget: string = null;
 	colours: string[] = [];
@@ -23,16 +22,6 @@ export class ComponentsComponent implements OnInit {
 	}
 
 	ngOnInit () {
-		this.authService.profile.subscribe(profile => {
-			if (profile) {
-				this.profile = new User(profile.email, profile.given_name, profile.family_name, profile.sub, null);
-				console.log(this.profile);
-
-				return;
-			}
-			this.profile = null;
-		})
-
 	}
 
 	// Type of components.
@@ -45,15 +34,17 @@ export class ComponentsComponent implements OnInit {
 		this.widget = widget;
 	}
 
-	onSelectedChange(value: string) {
+	onSelectedChange (value: string) {
 		this.selectedValue = value;
+
 	}
 	apply () {
-		const widget: Widget = new Widget(this.selectedValue, this.widget, this.profile.Email)
+		const widget: Widget = new Widget(null, this.selectedValue, this.widget, this.data.user.Email)
+		console.log(widget);
+
 		this.widgetService.create(widget)
 			.subscribe(id => {
 				this.url = "https://localhost:44351/api/widgets/" + id + ".js";
-				console.log(this.url);
 			});
 
 	}

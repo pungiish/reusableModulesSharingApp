@@ -1,11 +1,13 @@
 export class Widget{
+	Id: string
 	Color: string;
 	Name: string;
-	Username: string;
+	UserId: string;
 
-	constructor (colour: string, name: string, username: string) {
+	constructor (id: string, colour: string, name: string, email: string) {
+		this.Id = id;
 		this.Color = colour;
 		this.Name = name;
-		this.Username = username;
+		this.UserId = email;
 	}
 }

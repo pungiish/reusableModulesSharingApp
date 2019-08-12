@@ -1,6 +1,6 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// install a JSONP callback for chunk loading
-/******/ 	function webpackJsonp1Callback(data) {
+/******/ 	function webpackjsonp11Callback(data) {
 /******/ 		var chunkIds = data[0];
 /******/ 		var moreModules = data[1];
 /******/ 		var executeModules = data[2];
@@ -138,11 +138,11 @@
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
 /******/
-/******/ 	var jsonpArray = window["webpackJsonp1"] = window["webpackJsonp1"] || [];
+/******/ 	var jsonpArray = window["webpackjsonp11"] = window["webpackjsonp11"] || [];
 /******/ 	var oldJsonpFunction = jsonpArray.push.bind(jsonpArray);
-/******/ 	jsonpArray.push = webpackJsonp1Callback;
+/******/ 	jsonpArray.push = webpackjsonp11Callback;
 /******/ 	jsonpArray = jsonpArray.slice();
-/******/ 	for(var i = 0; i < jsonpArray.length; i++) webpackJsonp1Callback(jsonpArray[i]);
+/******/ 	for(var i = 0; i < jsonpArray.length; i++) webpackjsonp11Callback(jsonpArray[i]);
 /******/ 	var parentJsonpFunction = oldJsonpFunction;
 /******/
 /******/
@@ -152,7 +152,7 @@
 /************************************************************************/
 /******/ ([]);
 //# sourceMappingURL=runtime.js.map
-(window["webpackJsonp1"] = window["webpackJsonp1"] || []).push([["polyfills"],{
+(window["webpackjsonp11"] = window["webpackjsonp11"] || []).push([["polyfills"],{
 
 /***/ "./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js":
 /*!**************************************************************************************************!*\
@@ -5962,7 +5962,7 @@ module.exports = __webpack_require__(/*! D:\Centiva\CustomElements\LoginElement\
 
 },[[1,"runtime"]]]);
 //# sourceMappingURL=polyfills.js.map
-(window["webpackJsonp1"] = window["webpackJsonp1"] || []).push([["main"],{
+(window["webpackjsonp11"] = window["webpackjsonp11"] || []).push([["main"],{
 
 /***/ "./src/$$_lazy_route_resource lazy recursive":
 /*!**********************************************************!*\
@@ -5994,7 +5994,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "body {\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n.container {\r\n    width: 100%;\r\n}\r\n\r\n.box {\r\n\twidth: 25%;\r\n\tmargin: 0 auto;\r\n}\r\n\r\n.box:before {\r\n\tcontent: \"\";\r\n\tdisplay: block;\r\n\tpadding-top: 100%;\r\n}\r\n\r\n.green {\r\n    background-color: green;\r\n}\r\n\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxVQUFVO0lBQ1YsV0FBVztDQUNkOztBQUVEO0lBQ0ksWUFBWTtDQUNmOztBQUVEO0NBQ0MsV0FBVztDQUNYLGVBQWU7Q0FDZjs7QUFFRDtDQUNDLFlBQVk7Q0FDWixlQUFlO0NBQ2Ysa0JBQWtCO0NBQ2xCOztBQUVEO0lBQ0ksd0JBQXdCO0NBQzNCIiwiZmlsZSI6InNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJib2R5IHtcclxuICAgIG1hcmdpbjogMDtcclxuICAgIHBhZGRpbmc6IDA7XHJcbn1cclxuXHJcbi5jb250YWluZXIge1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbn1cclxuXHJcbi5ib3gge1xyXG5cdHdpZHRoOiAyNSU7XHJcblx0bWFyZ2luOiAwIGF1dG87XHJcbn1cclxuXHJcbi5ib3g6YmVmb3JlIHtcclxuXHRjb250ZW50OiBcIlwiO1xyXG5cdGRpc3BsYXk6IGJsb2NrO1xyXG5cdHBhZGRpbmctdG9wOiAxMDAlO1xyXG59XHJcblxyXG4uZ3JlZW4ge1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogZ3JlZW47XHJcbn1cclxuXHJcbiJdfQ== */"
+module.exports = ".box {\r\n\twidth: 25%;\r\n\tdisplay: block;\r\n\tcontent: \"\";\r\n\tpadding:50px;\r\n\r\n}\r\n\r\n\r\n\r\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Q0FDQyxXQUFXO0NBQ1gsZUFBZTtDQUNmLFlBQVk7Q0FDWixhQUFhOztDQUViIiwiZmlsZSI6InNyYy9hcHAvYXBwLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuYm94IHtcclxuXHR3aWR0aDogMjUlO1xyXG5cdGRpc3BsYXk6IGJsb2NrO1xyXG5cdGNvbnRlbnQ6IFwiXCI7XHJcblx0cGFkZGluZzo1MHB4O1xyXG5cclxufVxyXG5cclxuXHJcblxyXG4iXX0= */"
 
 /***/ }),
 
@@ -6005,7 +6005,7 @@ module.exports = "body {\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n\r\n.conta
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n    <div class=\"box green\"></div>\n</div>\n"
+module.exports = "<div class=\"container\">\n\t<div class=\"box\" [ngStyle]=\"{background: colour}\"></div>\n</div>\n"
 
 /***/ }),
 
@@ -6035,11 +6035,12 @@ let AppComponent = class AppComponent {
         this.title = 'LoginElement';
     }
     ngOnInit() {
+        console.log(this.colour);
     }
 };
 __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-    __metadata("design:type", Object)
+    __metadata("design:type", String)
 ], AppComponent.prototype, "colour", void 0);
 AppComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -6176,7 +6177,7 @@ module.exports = __webpack_require__(/*! D:\Centiva\CustomElements\LoginElement\
 
 },[[0,"runtime","vendor"]]]);
 //# sourceMappingURL=main.js.map
-(window["webpackJsonp1"] = window["webpackJsonp1"] || []).push([["styles"],{
+(window["webpackjsonp11"] = window["webpackjsonp11"] || []).push([["styles"],{
 
 /***/ "./node_modules/@angular-devkit/build-angular/src/angular-cli-files/plugins/raw-css-loader.js!./node_modules/postcss-loader/src/index.js?!./src/styles.css":
 /*!*****************************************************************************************************************************************************************!*\
@@ -6740,7 +6741,7 @@ module.exports = __webpack_require__(/*! D:\Centiva\CustomElements\LoginElement\
 
 },[[2,"runtime"]]]);
 //# sourceMappingURL=styles.js.map
-(window["webpackJsonp1"] = window["webpackJsonp1"] || []).push([["vendor"],{
+(window["webpackjsonp11"] = window["webpackjsonp11"] || []).push([["vendor"],{
 
 /***/ "./node_modules/@angular/common/fesm2015/common.js":
 /*!*********************************************************!*\
