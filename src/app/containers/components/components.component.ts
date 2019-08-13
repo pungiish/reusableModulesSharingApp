@@ -13,12 +13,23 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 	styleUrls: ['./components.component.css']
 })
 export class ComponentsComponent implements OnInit {
-	url: string = "";
+	colours: string[] = ["Red", "Green", "Blue"];
 	userWidgets: Widget[] = [];
-	allWidgets: Widget[] = [new Widget(),]
-
+	widgetNames: string[] = ["Square", "Circle"]
+	widgetOptions: any[] = [
+		{ name: "square", colour: this.colours },
+		{ name: "circle", colour: this.colours, text: "" }
+	]
+	selectedColour: string;
+	selectedText: string;
+	selectedOption: { name: string, colour: string[], text?: string };
+	response: string = "widget exists";
+	url: string = "";
+	show: boolean = true;
+	autohide: boolean = true;
 
 	constructor (private modalService: NgbModal, private authService: AuthService, private data: DataService, private widgetService: WidgetService) {
+
 	}
 
 	ngOnInit () {
@@ -26,34 +37,72 @@ export class ComponentsComponent implements OnInit {
 		this.widgetService.read(this.data.user)
 			.subscribe(x => {
 				x.forEach(widget => {
-					this.userWidgets.push(new Widget(widget.id, widget.color, widget.name, widget.userId))
+					this.userWidgets.push(new Widget(widget.id, widget.colour, widget.name, widget.userId, widget.text))
 				});
 			});
+		console.log(this.userWidgets);
+
 	}
 
-	// apply () {
-	// 	const widget: Widget = new Widget()
-	// 	this.widgetService.create(widget)
-	// 		.subscribe(id => {
-	// 			this.url = "https://localhost:44351/api/widgets/" + id + ".js";
-	// 		});
+	apply () {
+		const widget: Widget = new Widget(null, this.selectedColour, this.selectedOption.name, this.data.user.Email, this.selectedText)
+		this.widgetService.create(widget)
+			.subscribe(id => {
+				if (id == null) {
+					this.response = "Failed to create a new widget!"
+					this.show = true;
+				}
+				else {
+					this.url = "https://localhost:44351/api/widgets/" + id + ".js";
+					//Check if widget already in array!
+					if (this.userWidgets.find(x => x.Colour == widget.Colour && x.Name == widget.Name && x.Text == widget.Text)) {
+						this.response = "Widget already exists!"
+						this.show = true;
+					}
+					else {
+						console.log("Widget successfully created!");
+						console.log(this.selectedText);
 
-	// }
+						widget.Id = id;
+						this.userWidgets.push(widget);
+						console.log(widget);
+
+						this.response = "Widget successfully created!"
+						this.show = true;
+					}
+				}
+			});
+		setTimeout(() => {
+			this.show = false;
+		}, 5000);
+
+	}
 
 	getWidget (widget: Widget) {
 		console.log(widget);
 	}
 
-	copy (copy: string) {
-		var copyText = document.getElementById(copy) as HTMLInputElement;
+	newWidget (widgetName: string) {
+		this.selectedOption = this.widgetOptions.find(x => x.name == widgetName);
+		console.log(this.selectedOption);
+	}
+
+	copy (copy: string, widgetId: string) {
+		console.log(copy);
+		console.log(widgetId);
+		if (copy == 'tag')
+			var copyText = document.getElementById('tag'+widgetId) as HTMLInputElement;
+		else
+			var copyText = document.getElementById(widgetId) as HTMLInputElement;
+
+		console.log(copyText.value);
 		/* Select the text field */
 		copyText.select();
 		document.execCommand("copy");
 	}
 
 	openVerticallyCentered (content) {
-		console.log("click");
-
+		this.selectedOption = null;
 		this.modalService.open(content, { centered: true });
 	}
 }
