@@ -6,7 +6,25 @@
 	align-items: center;
 	/* align-content: */
 	padding-left:95px;
-	padding-top:30px;
+	padding-top:50px;
+}
+
+.row
+{
+	display: flex;
+	flex-flow: row nowrap;
+	width: 100%
+}
+.col
+{
+	display: flex;
+	flex-flow: column wrap;
+	flex-basis:100%;
+	flex: 1;
+}
+.child
+{
+
 }
 
 .add
@@ -15,4 +33,10 @@
     height: 100px;
 	background: green;
 	margin: 15px;
+}
+
+
+
+.dropdown-toggle::after {
+    display:none;
 }

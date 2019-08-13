@@ -1,10 +1,28 @@
 <div class="container">
-	<div *ngFor="let widget of widgets" class="child">
-		<span *ngIf="widgets">
-			<element-el [colour]="widget.color" style="margin: 10px"></element-el>
+	<div *ngFor="let widget of userWidgets" class="child">
+		<span *ngIf="userWidgets">
+			<div ngbDropdown placement="top-left" class="d-inline-block">
+				<element-el [colour]="widget.Color" id="dropdown" ngbDropdownToggle>
+				</element-el>
+				<div ngbDropdownMenu aria-labelledby="dropdown">
+					<div class="col">
+						<div class="row">
+							<input name="script" id="script" value="&#x3c;script>https://localhost:3000/api/widgets/{{widget.Id}}.js&#x3c;/script"
+								readonly><button
+								class="btn btn-light" (click)="copy('script')">Copy</button>
+						</div>
+						<div class="row">
+							<input name="" id="tag" value="&#x3c;element-el>&#x3c;/element-el>"
+								readonly><button class="btn btn-light"
+								(click)="copy('tag')">Copy</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</span>
 	</div>
-	<button type="button" class="btn btn-primary child add rounded-circle" (click)="openVerticallyCentered(content)">New Widget</button>
+	<button type="button" class="btn btn-primary child add rounded-circle" (click)="openVerticallyCentered(content)">New
+		Widget</button>
 	<ng-template #content let-modal>
 		<div class="modal-header">
 			<h4 class="modal-title">Choose a new Widget</h4>
@@ -13,11 +31,13 @@
 			</button>
 		</div>
 		<div class="modal-body">
-			<p>Square</p>
-			<p>Circle</p>
+			<ul>
+				<li *ngFor="widget of allWidgets">{{widget.name}}</li>
+			</ul>
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
 		</div>
 	</ng-template>
+
 </div>
