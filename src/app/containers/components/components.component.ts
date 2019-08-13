@@ -4,6 +4,7 @@ import { DataService } from 'src/app/services/data-service.service';
 import { Widget } from 'src/app/models/widget-model';
 import { WidgetService } from 'src/app/services/widget-service.service';
 import { User } from 'src/app/models/user-model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
 	selector: 'app-components',
@@ -17,7 +18,8 @@ export class ComponentsComponent implements OnInit {
 	selectedValue: string;
 	url: string = "";
 	widgets: Widget[];
-	constructor (private authService: AuthService, private data: DataService, private widgetService: WidgetService) {
+	closeResult: string;
+	constructor (private modalService: NgbModal, private authService: AuthService, private data: DataService, private widgetService: WidgetService) {
 		this.colours.push('green', 'red', 'blue');
 		this.selectedValue = this.colours[0];
 	}
@@ -54,4 +56,10 @@ export class ComponentsComponent implements OnInit {
 			});
 
 	}
+
+	openVerticallyCentered (content) {
+		console.log("click");
+
+		this.modalService.open(content, { centered: true });
+	  }
 }

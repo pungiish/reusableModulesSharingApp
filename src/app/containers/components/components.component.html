@@ -1,8 +1,23 @@
 <div class="container">
 	<div *ngFor="let widget of widgets" class="child">
-		<span *ngIf="widget.name=='box'">
+		<span *ngIf="widgets">
 			<element-el [colour]="widget.color" style="margin: 10px"></element-el>
 		</span>
 	</div>
-	<button type="button" class="btn btn-primary child add rounded-circle">New Widget</button>
+	<button type="button" class="btn btn-primary child add rounded-circle" (click)="openVerticallyCentered(content)">New Widget</button>
+	<ng-template #content let-modal>
+		<div class="modal-header">
+			<h4 class="modal-title">Choose a new Widget</h4>
+			<button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			<p>Square</p>
+			<p>Circle</p>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+		</div>
+	</ng-template>
 </div>
