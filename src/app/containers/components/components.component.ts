@@ -13,10 +13,19 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 	styleUrls: ['./components.component.css']
 })
 export class ComponentsComponent implements OnInit {
-	url: string = "";
+	colors: string[] = ["Red", "Green", "Blue"];
 	userWidgets: Widget[] = [];
-	allWidgets: Widget[] = [new Widget(),]
-
+	widgetNames: string[] = ["Square", "Circle"]
+	widgetOptions: any[] = [
+		{ name: "square", color: this.colors },
+		{ name: "circle", color: this.colors, text: "" }
+	]
+	selectedColor: string;
+	selectedOption: { name: string, color: string[], text?: string };
+	response: string = "widget exists";
+	url: string = "";
+	show: boolean = true;
+	autohide: boolean = true;
 
 	constructor (private modalService: NgbModal, private authService: AuthService, private data: DataService, private widgetService: WidgetService) {
 	}
@@ -31,17 +40,43 @@ export class ComponentsComponent implements OnInit {
 			});
 	}
 
-	// apply () {
-	// 	const widget: Widget = new Widget()
-	// 	this.widgetService.create(widget)
-	// 		.subscribe(id => {
-	// 			this.url = "https://localhost:44351/api/widgets/" + id + ".js";
-	// 		});
+	apply () {
+		const widget: Widget = new Widget(null, this.selectedColor, this.selectedOption.name, this.data.user.Email)
+		this.widgetService.create(widget)
+			.subscribe(id => {
+				if (id == null) {
+					this.response = "Failed to create a new widget!"
+					this.show = true;
+				}
+				else {
+					this.url = "https://localhost:44351/api/widgets/" + id + ".js";
+					//Check if widget already in array!
+					if (this.userWidgets.find(x => x.Color == widget.Color && x.Name == widget.Name)) {
+						this.response = "Widget already exists!"
+						this.show = true;
+					}
+					else {
+						console.log("Widget successfully created!");
+						widget.Id = id;
+						this.userWidgets.push(widget);
+						this.response = "Widget successfully created!"
+						this.show = true;
+					}
+				}
+			});
+		setTimeout(() => {
+			this.show = false;
+		}, 5000);
 
-	// }
+	}
 
 	getWidget (widget: Widget) {
 		console.log(widget);
+	}
+
+	newWidget (widgetName: string) {
+		this.selectedOption = this.widgetOptions.find(x => x.name == widgetName);
+		console.log(this.selectedOption);
 	}
 
 	copy (copy: string) {
@@ -52,8 +87,7 @@ export class ComponentsComponent implements OnInit {
 	}
 
 	openVerticallyCentered (content) {
-		console.log("click");
-
+		this.selectedOption = null;
 		this.modalService.open(content, { centered: true });
 	}
 }

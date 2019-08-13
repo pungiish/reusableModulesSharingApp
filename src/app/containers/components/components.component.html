@@ -1,42 +1,75 @@
 <div class="container">
-	<div *ngFor="let widget of userWidgets" class="child">
-		<span *ngIf="userWidgets">
-			<div ngbDropdown placement="top-left" class="d-inline-block">
-				<element-el [colour]="widget.Color" id="dropdown" ngbDropdownToggle>
-				</element-el>
-				<div ngbDropdownMenu aria-labelledby="dropdown">
-					<div class="col">
-						<div class="row">
-							<input name="script" id="script" value="&#x3c;script>https://localhost:3000/api/widgets/{{widget.Id}}.js&#x3c;/script"
-								readonly><button
-								class="btn btn-light" (click)="copy('script')">Copy</button>
-						</div>
-						<div class="row">
-							<input name="" id="tag" value="&#x3c;element-el>&#x3c;/element-el>"
-								readonly><button class="btn btn-light"
-								(click)="copy('tag')">Copy</button>
+	<div class="row">
+		<ngb-toast *ngIf="show" class="bg-warning">
+			<div *ngIf="autohide">
+				{{response}}
+			</div>
+		</ngb-toast>
+	</div>
+		<div *ngFor="let widget of userWidgets" class="child">
+			<span *ngIf="userWidgets">
+				<div ngbDropdown placement="top-left" class="d-inline-block">
+					<element-el [colour]="widget.Color" id="dropdown" ngbDropdownToggle>
+					</element-el>
+					<div ngbDropdownMenu aria-labelledby="dropdown">
+						<div class="col">
+							<div class="row">
+								<input name="script" id="script"
+									value="&#x3c;script>https://localhost:3000/api/widgets/{{widget.Id}}.js&#x3c;/script"
+									readonly><button class="btn btn-light" (click)="copy('script')">Copy</button>
+							</div>
+							<div class="row">
+								<input name="" id="tag" value="&#x3c;element-el>&#x3c;/element-el>" readonly><button
+									class="btn btn-light" (click)="copy('tag')">Copy</button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</span>
+			</span>
 	</div>
 	<button type="button" class="btn btn-primary child add rounded-circle" (click)="openVerticallyCentered(content)">New
 		Widget</button>
 	<ng-template #content let-modal>
-		<div class="modal-header">
-			<h4 class="modal-title">Choose a new Widget</h4>
-			<button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-				<span aria-hidden="true">&times;</span>
-			</button>
+		<div *ngIf="!selectedOption">
+			<div class="modal-header">
+				<h4 class="modal-title">Choose a new Widget</h4>
+				<button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<button class="btn btn-light" *ngFor="let options of widgetOptions"
+					(click)="newWidget(options.name)">{{options.name}}</button>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+			</div>
 		</div>
-		<div class="modal-body">
-			<ul>
-				<li *ngFor="widget of allWidgets">{{widget.name}}</li>
-			</ul>
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+		<div *ngIf="selectedOption">
+			<div class="modal-header">
+				<h4 class="modal-title">New {{selectedOption.name}} Widget</h4>
+				<button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="colorSelect">Select color:</label>
+					<select class="form-control" id="colorSelect" [(ngModel)]="selectedColor">
+						<option *ngFor="let color of colors">{{color}}</option>
+					</select>
+				</div>
+				<div *ngIf="selectedOption.text == ''">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Text">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary" (click)="apply()"
+						(click)="modal.close('Close click')">Submit</button>
+					<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+				</div>
+			</div>
 		</div>
 	</ng-template>
 

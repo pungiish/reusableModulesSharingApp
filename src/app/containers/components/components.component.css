@@ -5,8 +5,7 @@
 	justify-content: flex-start; /* or space-evenly */
 	align-items: center;
 	/* align-content: */
-	padding-left:95px;
-	padding-top:50px;
+
 }
 
 .row
@@ -26,6 +25,10 @@
 {
 
 }
+.padding{
+	padding-left:95px;
+	padding-top:50px;
+}
 
 .add
 {
@@ -39,4 +42,9 @@
 
 .dropdown-toggle::after {
     display:none;
+}
+
+ngb-toast
+{
+	margin: 15px;
 }
