@@ -1,8 +1,8 @@
-<span class="badge badge-pill badge-primary">Primary</span>
 <div class="container">
-	<div *ngFor="let widget of widgets">
+	<div *ngFor="let widget of widgets" class="child">
 		<span *ngIf="widget.name=='box'">
 			<element-el [colour]="widget.color" style="margin: 10px"></element-el>
 		</span>
 	</div>
+	<button type="button" class="btn btn-primary child add rounded-circle">New Widget</button>
 </div>

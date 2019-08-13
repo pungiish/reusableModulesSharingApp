@@ -1,13 +1,18 @@
 .container
 {
 	display: flex;
-	justify-content: center;
+	flex-flow: row wrap;
+	justify-content: flex-start; /* or space-evenly */
+	align-items: center;
+	/* align-content: */
+	padding-left:95px;
+	padding-top:30px;
 }
-.newWidget{
-	background: green;
-	margin-bottom: 23.5px;
-	margin-top: 23.5px;
-	padding:50px;
-	margin-left:15px;
 
+.add
+{
+	width: 100px;
+    height: 100px;
+	background: green;
+	margin: 15px;
 }
