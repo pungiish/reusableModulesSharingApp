@@ -13,21 +13,23 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 	styleUrls: ['./components.component.css']
 })
 export class ComponentsComponent implements OnInit {
-	colors: string[] = ["Red", "Green", "Blue"];
+	colours: string[] = ["Red", "Green", "Blue"];
 	userWidgets: Widget[] = [];
 	widgetNames: string[] = ["Square", "Circle"]
 	widgetOptions: any[] = [
-		{ name: "square", color: this.colors },
-		{ name: "circle", color: this.colors, text: "" }
+		{ name: "square", colour: this.colours },
+		{ name: "circle", colour: this.colours, text: "" }
 	]
-	selectedColor: string;
-	selectedOption: { name: string, color: string[], text?: string };
+	selectedColour: string;
+	selectedText: string;
+	selectedOption: { name: string, colour: string[], text?: string };
 	response: string = "widget exists";
 	url: string = "";
 	show: boolean = true;
 	autohide: boolean = true;
 
 	constructor (private modalService: NgbModal, private authService: AuthService, private data: DataService, private widgetService: WidgetService) {
+
 	}
 
 	ngOnInit () {
@@ -35,13 +37,15 @@ export class ComponentsComponent implements OnInit {
 		this.widgetService.read(this.data.user)
 			.subscribe(x => {
 				x.forEach(widget => {
-					this.userWidgets.push(new Widget(widget.id, widget.color, widget.name, widget.userId))
+					this.userWidgets.push(new Widget(widget.id, widget.colour, widget.name, widget.userId, widget.text))
 				});
 			});
+		console.log(this.userWidgets);
+
 	}
 
 	apply () {
-		const widget: Widget = new Widget(null, this.selectedColor, this.selectedOption.name, this.data.user.Email)
+		const widget: Widget = new Widget(null, this.selectedColour, this.selectedOption.name, this.data.user.Email, this.selectedText)
 		this.widgetService.create(widget)
 			.subscribe(id => {
 				if (id == null) {
@@ -51,14 +55,18 @@ export class ComponentsComponent implements OnInit {
 				else {
 					this.url = "https://localhost:44351/api/widgets/" + id + ".js";
 					//Check if widget already in array!
-					if (this.userWidgets.find(x => x.Color == widget.Color && x.Name == widget.Name)) {
+					if (this.userWidgets.find(x => x.Colour == widget.Colour && x.Name == widget.Name && x.Text == widget.Text)) {
 						this.response = "Widget already exists!"
 						this.show = true;
 					}
 					else {
 						console.log("Widget successfully created!");
+						console.log(this.selectedText);
+
 						widget.Id = id;
 						this.userWidgets.push(widget);
+						console.log(widget);
+
 						this.response = "Widget successfully created!"
 						this.show = true;
 					}
@@ -79,8 +87,15 @@ export class ComponentsComponent implements OnInit {
 		console.log(this.selectedOption);
 	}
 
-	copy (copy: string) {
-		var copyText = document.getElementById(copy) as HTMLInputElement;
+	copy (copy: string, widgetId: string) {
+		console.log(copy);
+		console.log(widgetId);
+		if (copy == 'tag')
+			var copyText = document.getElementById('tag'+widgetId) as HTMLInputElement;
+		else
+			var copyText = document.getElementById(widgetId) as HTMLInputElement;
+
+		console.log(copyText.value);
 		/* Select the text field */
 		copyText.select();
 		document.execCommand("copy");
