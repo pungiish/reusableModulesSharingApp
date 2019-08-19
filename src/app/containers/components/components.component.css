@@ -1,3 +1,6 @@
+body{
+	height: 100;
+}
 .container
 {
 	display: flex;
@@ -7,7 +10,6 @@
 	/* align-content: */
 
 }
-
 .row
 {
 	display: flex;
@@ -20,10 +22,6 @@
 	flex-flow: column wrap;
 	flex-basis:100%;
 	flex: 1;
-}
-.child
-{
-
 }
 .padding{
 	padding-left:95px;
@@ -46,5 +44,10 @@
 
 ngb-toast
 {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+	width: 100%;
 	margin: 15px;
+	background-color: red;
 }

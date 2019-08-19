@@ -23,9 +23,9 @@ export class ComponentsComponent implements OnInit {
 	selectedColour: string;
 	selectedText: string;
 	selectedOption: { name: string, colour: string[], text?: string };
-	response: string = "widget exists";
+	response: string = "widget already exists!";
 	url: string = "";
-	show: boolean = true;
+	show: boolean = false;
 	autohide: boolean = true;
 
 	constructor (private modalService: NgbModal, private authService: AuthService, private data: DataService, private widgetService: WidgetService) {
@@ -60,13 +60,10 @@ export class ComponentsComponent implements OnInit {
 						this.show = true;
 					}
 					else {
-						console.log("Widget successfully created!");
 						console.log(this.selectedText);
-
 						widget.Id = id;
 						this.userWidgets.push(widget);
 						console.log(widget);
-
 						this.response = "Widget successfully created!"
 						this.show = true;
 					}
@@ -74,7 +71,7 @@ export class ComponentsComponent implements OnInit {
 			});
 		setTimeout(() => {
 			this.show = false;
-		}, 5000);
+		}, 1000);
 
 	}
 

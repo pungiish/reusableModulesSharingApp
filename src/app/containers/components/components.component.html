@@ -1,11 +1,5 @@
 <div class="container">
-    <div class="row">
-        <ngb-toast *ngIf="show" class="bg-warning">
-            <div *ngIf="autohide">
-                {{response}}
-            </div>
-        </ngb-toast>
-    </div>
+
     <div *ngFor="let widget of userWidgets" class="child">
         <span *ngIf="widget">
             <div *ngIf="widget.Name == 'circle'">
@@ -94,5 +88,12 @@
             </div>
         </div>
     </ng-template>
-
+	<div class="row">
+		<ngb-toast *ngIf="show">
+			<div *ngIf="autohide">
+				{{response}}
+			</div>
+		</ngb-toast>
+	</div>
 </div>
+
