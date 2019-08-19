@@ -5,6 +5,7 @@ import { Widget } from 'src/app/models/widget-model';
 import { WidgetService } from 'src/app/services/widget-service.service';
 import { User } from 'src/app/models/user-model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 	styleUrls: ['./components.component.css']
 })
 export class ComponentsComponent implements OnInit {
+	name = new FormControl('');
 	colours: string[] = ["Red", "Green", "Blue"];
 	userWidgets: Widget[] = [];
 	widgetNames: string[] = ["Square", "Circle"]
@@ -20,9 +22,10 @@ export class ComponentsComponent implements OnInit {
 		{ name: "square", colour: this.colours },
 		{ name: "circle", colour: this.colours, text: "" }
 	]
-	selectedColour: string;
+	selectedColour = "Red";
 	selectedText: string;
 	selectedOption: { name: string, colour: string[], text?: string };
+	selectedWidget: Widget;
 	response: string = "widget already exists!";
 	url: string = "";
 	show: boolean = false;
@@ -75,6 +78,11 @@ export class ComponentsComponent implements OnInit {
 
 	}
 
+	update (widget: Widget) {
+		this.widgetService.update(widget)
+			.subscribe(res => console.log(res))
+	}
+
 	newWidget (widgetName: string) {
 		this.selectedOption = this.widgetOptions.find(x => x.name == widgetName);
 		console.log(this.selectedOption);
@@ -84,7 +92,7 @@ export class ComponentsComponent implements OnInit {
 		console.log(copy);
 		console.log(widgetId);
 		if (copy == 'tag')
-			var copyText = document.getElementById('tag'+widgetId) as HTMLInputElement;
+			var copyText = document.getElementById('tag' + widgetId) as HTMLInputElement;
 		else
 			var copyText = document.getElementById(widgetId) as HTMLInputElement;
 
@@ -94,8 +102,29 @@ export class ComponentsComponent implements OnInit {
 		document.execCommand("copy");
 	}
 
-	openVerticallyCentered (content) {
+	openVerticallyCentered (content, widget) {
+		let wid: Widget;
+		if (widget != undefined) {
+			this.selectedWidget = widget;
+			wid = new Widget(widget.Id, widget.Colour, widget.Name, widget.UserId, widget.Text);
+
+		}
 		this.selectedOption = null;
-		this.modalService.open(content, { centered: true });
+		const modal = this.modalService.open(content, { centered: true });
+		modal.result.then(() => {
+			console.log('submit');
+		}, () => {
+			console.log('dismiss');
+			if (widget) {
+				console.log('inputWidget: ', widget);
+				this.selectedWidget.Colour = wid.Colour;
+				this.selectedWidget.Text = wid.Text;
+				this.name.setValue(this.selectedWidget.Text);
+
+			}
+		})
+	}
+	updateText (e) {
+		this.selectedWidget.Text = e;
 	}
 }

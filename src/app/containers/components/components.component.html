@@ -1,93 +1,117 @@
 <div class="container">
 
-    <div *ngFor="let widget of userWidgets" class="child">
-        <span *ngIf="widget">
-            <div *ngIf="widget.Name == 'circle'">
-                <div ngbDropdown placement="top-left" class="d-inline-block">
-                    <circle-element [colour]="widget.Colour" [circletext]="widget.Text" id="dropdown" ngbDropdownToggle>
-                    </circle-element>
-                    <div ngbDropdownMenu aria-labelledby="dropdown">
-                        <div class="col">
-                            <div class="row">
-                                <input name="script" id="{{widget.Id}}"
-                                    value="&#x3c;script>https://localhost:3000/api/widgets/{{widget.Id}}.js&#x3c;/script>"
-                                    readonly><button class="btn btn-light" (click)="copyToClipboard('script', widget.Id)">copy</button>
-                            </div>
-                            <div class="row">
-                                <input name="tag" id="{{'tag' + widget.Id}}" value="&#x3c;element-el>&#x3c;/element-el>" readonly><button
-                                    class="btn btn-light" (click)="copyToClipboard('tag', widget.Id)">Copy</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div *ngIf="widget.Name == 'square'">
-                <div ngbDropdown placement="top-left" class="d-inline-block">
-                    <element-el [colour]="widget.Colour" id="dropdown" ngbDropdownToggle>
-                    </element-el>
-                    <div ngbDropdownMenu aria-labelledby="dropdown">
-                        <div class="col">
-                            <div class="row">
-                                <input name="script" id="script"
-                                    value="&#x3c;script>https://localhost:3000/api/widgets/{{widget.Id}}.js&#x3c;/script"
-                                    readonly><button class="btn btn-light" (click)="copyToClipboard('script')">Copy</button>
-                            </div>
-                            <div class="row">
-                                <input name="" id="tag" value="&#x3c;element-el>&#x3c;/element-el>" readonly><button
-                                    class="btn btn-light" (click)="copyToClipboard('tag')">Copy</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </span>
-    </div>
-    <button type="button" class="btn btn-primary child add rounded-circle" (click)="openVerticallyCentered(content)">New
-        Widget</button>
-    <ng-template #content let-modal>
-        <div *ngIf="!selectedOption">
-            <div class="modal-header">
-                <h4 class="modal-title">Choose a new Widget</h4>
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <button class="btn btn-light" *ngFor="let options of widgetOptions"
-                    (click)="newWidget(options.name)">{{options.name}}</button>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
-            </div>
-        </div>
-        <div *ngIf="selectedOption">
-            <div class="modal-header">
-                <h4 class="modal-title">New {{selectedOption.name}} Widget</h4>
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="colourSelect">Select colour:</label>
-                    <select class="form-control" id="colourSelect" [(ngModel)]="selectedColour">
-                        <option *ngFor="let colour of colours">{{colour}}</option>
-                    </select>
-                </div>
-                <div *ngIf="selectedOption.text == ''">
-                    <div class="form-group">
-                        <input type="text" class="form-control" [placeholder]="selectedOption.text"
-                            [(ngModel)]="selectedText">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" (click)="apply()"
-                        (click)="modal.close('Close click')">Submit</button>
-                    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
-                </div>
-            </div>
-        </div>
-    </ng-template>
+	<div *ngFor="let widget of userWidgets" class="child">
+		<span *ngIf="widget">
+			<div *ngIf="widget.Name == 'circle'">
+				<circle-element [colour]="widget.Colour" [circletext]="widget.Text"
+					(click)="openVerticallyCentered(content, widget)">
+				</circle-element>
+			</div>
+			<div *ngIf="widget.Name == 'square'">
+				<element-el [colour]="widget.Colour" (click)="openVerticallyCentered(content, widget)">
+				</element-el>
+
+			</div>
+		</span>
+	</div>
+	<button type="button" class="btn btn-primary child add rounded-circle"
+		(click)="openVerticallyCentered(newwidget)">New
+		Widget</button>
+	<ng-template #newwidget let-modal>
+		<div *ngIf="!selectedOption">
+			<div class="modal-header">
+				<h4 class="modal-title">Choose a new Widget</h4>
+				<button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<button class="btn btn-light" *ngFor="let options of widgetOptions"
+					(click)="newWidget(options.name)">{{options.name}}</button>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+			</div>
+		</div>
+		<div *ngIf="selectedOption">
+			<div class="modal-header">
+				<h4 class="modal-title">New {{selectedOption.name}} Widget</h4>
+				<button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="colourSelect">Select colour:</label>
+					<select class="form-control" id="colourSelect" [(ngModel)]="selectedColour">
+						<option *ngFor="let colour of colours">{{colour}}</option>
+					</select>
+				</div>
+				<div *ngIf="selectedOption.text == ''">
+					<div class="form-group">
+						<input type="text" class="form-control" [placeholder]="selectedOption.text"
+							[(ngModel)]="selectedText">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary" (click)="apply()"
+						(click)="modal.close('Close click')">Submit</button>
+					<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+				</div>
+			</div>
+		</div>
+	</ng-template>
+	<ng-template #content let-modal>
+		<div class="modal-header">
+			<h4 class="modal-title">Update Widget</h4>
+			<button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			<div class="col">
+				<div class="row">
+					<input name="script" id="script"
+						value="&#x3c;script>https://localhost:3000/api/widgets/{{selectedWidget.Id}}.js&#x3c;/script"
+						readonly><button class="btn btn-light" (click)="copyToClipboard('script')">Copy</button>
+				</div>
+				<div class="row" *ngIf="selectedWidget.Name == 'box' || selectedWidget.Name == 'square'" >
+					<input id="tag"
+						value="&#x3c;element-el>&#x3c;/element-el>" readonly>
+						<button class="btn btn-light"
+						(click)="copyToClipboard('tag')">Copy</button>
+				</div>
+				<div class="row" *ngIf="selectedWidget.Name == 'circle'" >
+					<input  id="tag"
+						value="&#x3c;circle-element>&#x3c;/circle-element>" readonly>
+						<button class="btn btn-light"
+						(click)="copyToClipboard('tag')">Copy</button>
+				</div>
+				<div class="row">
+					<div class="form-group">
+						<label for="colourSelect">Update colour:</label>
+						<select class="form-control" id="colourSelect" [(ngModel)]="selectedWidget.Colour">
+							<option *ngFor="let colour of colours">{{colour}}</option>
+						</select>
+					</div>
+				</div>
+				<div *ngIf="selectedWidget.Name == 'circle'" class="row">
+					<div class="form-group">
+						<label for="textSelect">Update text:</label>
+						<div class="form-group">
+							<input type="text" id="textSelect" class="form-control" [placeholder]="selectedWidget.Text"
+								[formControl]="name" (keyup)="updateText(name.value)">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="submit" class="btn btn-primary" (click)="update(selectedWidget)"
+				(click)="modal.close('Close click')">Submit</button>
+			<button type="button" class="btn btn-light" (click)="modal.dismiss('Dismiss click')">Close</button>
+		</div>
+	</ng-template>
 	<div class="row">
 		<ngb-toast *ngIf="show">
 			<div *ngIf="autohide">
@@ -96,4 +120,3 @@
 		</ngb-toast>
 	</div>
 </div>
-
