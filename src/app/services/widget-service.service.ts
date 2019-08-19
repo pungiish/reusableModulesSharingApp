@@ -17,9 +17,10 @@ export class WidgetService {
 	public read (user: User): Observable<any> {
 		return this.http.get(this.env.url + "/widgets/" + user.Email);
 	}
-	private fullRoute (route: string, envAddress: string): string {
-		return `${envAddress}/${route}`;
+	public update (body: Widget): Observable<any> {
+		return this.http.put(this.env.url + "/widgets/update", body, this.headers());
 	}
+
 	private headers () {
 		return {
 			headers: new HttpHeaders({
