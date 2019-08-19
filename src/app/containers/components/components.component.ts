@@ -78,16 +78,12 @@ export class ComponentsComponent implements OnInit {
 
 	}
 
-	getWidget (widget: Widget) {
-		console.log(widget);
-	}
-
 	newWidget (widgetName: string) {
 		this.selectedOption = this.widgetOptions.find(x => x.name == widgetName);
 		console.log(this.selectedOption);
 	}
 
-	copy (copy: string, widgetId: string) {
+	copyToClipboard (copy: string, widgetId: string) {
 		console.log(copy);
 		console.log(widgetId);
 		if (copy == 'tag')

@@ -17,11 +17,11 @@
                             <div class="row">
                                 <input name="script" id="{{widget.Id}}"
                                     value="&#x3c;script>https://localhost:3000/api/widgets/{{widget.Id}}.js&#x3c;/script>"
-                                    readonly><button class="btn btn-light" (click)="copy('script', widget.Id)">copy</button>
+                                    readonly><button class="btn btn-light" (click)="copyToClipboard('script', widget.Id)">copy</button>
                             </div>
                             <div class="row">
                                 <input name="tag" id="{{'tag' + widget.Id}}" value="&#x3c;element-el>&#x3c;/element-el>" readonly><button
-                                    class="btn btn-light" (click)="copy('tag', widget.Id)">Copy</button>
+                                    class="btn btn-light" (click)="copyToClipboard('tag', widget.Id)">Copy</button>
                             </div>
                         </div>
                     </div>
@@ -36,11 +36,11 @@
                             <div class="row">
                                 <input name="script" id="script"
                                     value="&#x3c;script>https://localhost:3000/api/widgets/{{widget.Id}}.js&#x3c;/script"
-                                    readonly><button class="btn btn-light" (click)="copy('script')">Copy</button>
+                                    readonly><button class="btn btn-light" (click)="copyToClipboard('script')">Copy</button>
                             </div>
                             <div class="row">
                                 <input name="" id="tag" value="&#x3c;element-el>&#x3c;/element-el>" readonly><button
-                                    class="btn btn-light" (click)="copy('tag')">Copy</button>
+                                    class="btn btn-light" (click)="copyToClipboard('tag')">Copy</button>
                             </div>
                         </div>
                     </div>
