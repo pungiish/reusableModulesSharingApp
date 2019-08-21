@@ -17,9 +17,9 @@ export class ComponentsComponent implements OnInit {
 	name = new FormControl('');
 	colours: string[] = ["Red", "Green", "Blue"];
 	userWidgets: Widget[] = [];
-	widgetNames: string[] = ["Square", "Circle"]
+	widgetNames: string[] = ["Box", "Circle"]
 	widgetOptions: any[] = [
-		{ name: "square", colour: this.colours },
+		{ name: "box", colour: this.colours },
 		{ name: "circle", colour: this.colours, text: "" }
 	]
 	selectedColour = "Red";
@@ -36,11 +36,15 @@ export class ComponentsComponent implements OnInit {
 	}
 
 	ngOnInit () {
+
 		this.authService.profile.subscribe(x => this.data.user = new User(x.email, x.name, x.family_name, x.sub, null));
+		this.data.create(this.data.user)
+		.subscribe(u => console.log(u)
+		)
 		this.widgetService.read(this.data.user)
 			.subscribe(x => {
 				x.forEach(widget => {
-					this.userWidgets.push(new Widget(widget.id, widget.colour, widget.name, widget.userId, widget.text))
+					this.userWidgets.push(new Widget(widget.id, widget.tag, widget.colour, widget.name, widget.userId, widget.text))
 				});
 			});
 		console.log(this.userWidgets);
@@ -48,7 +52,7 @@ export class ComponentsComponent implements OnInit {
 	}
 
 	apply () {
-		const widget: Widget = new Widget(null, this.selectedColour, this.selectedOption.name, this.data.user.Email, this.selectedText)
+		const widget: Widget = new Widget(null, null, this.selectedColour, this.selectedOption.name, this.data.user.Email, this.selectedText)
 		this.widgetService.create(widget)
 			.subscribe(id => {
 				if (id == null) {
@@ -63,10 +67,10 @@ export class ComponentsComponent implements OnInit {
 						this.show = true;
 					}
 					else {
-						console.log(this.selectedText);
+						console.log(widget);
+
 						widget.Id = id;
 						this.userWidgets.push(widget);
-						console.log(widget);
 						this.response = "Widget successfully created!"
 						this.show = true;
 					}
@@ -88,13 +92,9 @@ export class ComponentsComponent implements OnInit {
 		console.log(this.selectedOption);
 	}
 
-	copyToClipboard (copy: string, widgetId: string) {
+	copyToClipboard (copy: string) {
 		console.log(copy);
-		console.log(widgetId);
-		if (copy == 'tag')
-			var copyText = document.getElementById('tag' + widgetId) as HTMLInputElement;
-		else
-			var copyText = document.getElementById(widgetId) as HTMLInputElement;
+		var copyText = document.getElementById(copy) as HTMLInputElement;
 
 		console.log(copyText.value);
 		/* Select the text field */
@@ -106,7 +106,7 @@ export class ComponentsComponent implements OnInit {
 		let wid: Widget;
 		if (widget != undefined) {
 			this.selectedWidget = widget;
-			wid = new Widget(widget.Id, widget.Colour, widget.Name, widget.UserId, widget.Text);
+			wid = new Widget(widget.Id, widget.Tag,  widget.Colour, widget.Name, widget.UserId, widget.Text);
 
 		}
 		this.selectedOption = null;
