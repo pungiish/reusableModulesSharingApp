@@ -1,0 +1,6 @@
+.container {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-start; /* or space-evenly */
+	align-items: center;
+}

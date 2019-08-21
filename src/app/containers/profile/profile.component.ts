@@ -39,6 +39,8 @@ export class ProfileComponent implements OnInit {
 			this.profile = null;
 			this.profileJson = null;
 		});
+		console.log("PROFILE ONINIT");
+
 
 	}
 }

@@ -7,7 +7,7 @@
 					(click)="openVerticallyCentered(content, widget)">
 				</circle-element>
 			</div>
-			<div *ngIf="widget.Name == 'square'">
+			<div *ngIf="widget.Name == 'box'">
 				<element-el [colour]="widget.Colour" (click)="openVerticallyCentered(content, widget)">
 				</element-el>
 
@@ -41,22 +41,33 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<div class="form-group">
-					<label for="colourSelect">Select colour:</label>
-					<select class="form-control" id="colourSelect" [(ngModel)]="selectedColour">
-						<option *ngFor="let colour of colours">{{colour}}</option>
-					</select>
-				</div>
-				<div *ngIf="selectedOption.text == ''">
+				<div class="col">
 					<div class="form-group">
-						<input type="text" class="form-control" [placeholder]="selectedOption.text"
-							[(ngModel)]="selectedText">
+						<div class="row">
+							<label for="colourSelect">Select colour</label>
+						</div>
+						<div class="row">
+							<select class="form-control" id="colourSelect" [(ngModel)]="selectedColour">
+								<option *ngFor="let colour of colours">{{colour}}</option>
+							</select>
+						</div>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary" (click)="apply()"
-						(click)="modal.close('Close click')">Submit</button>
-					<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+					<div *ngIf="selectedOption.text == ''">
+						<div class="form-group">
+							<div class="row">
+								<label for="textInput">Enter text:</label>
+							</div>
+							<div class="row">
+								<input id="textInput" type="text" class="form-control" [placeholder]="selectedOption.text"
+								[(ngModel)]="selectedText">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary" (click)="apply()"
+							(click)="modal.close('Close click')">Submit</button>
+						<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -70,35 +81,42 @@
 		</div>
 		<div class="modal-body">
 			<div class="col">
-				<div class="row">
-					<input name="script" id="script"
-						value="&#x3c;script>https://localhost:3000/api/widgets/{{selectedWidget.Id}}.js&#x3c;/script"
-						readonly><button class="btn btn-light" (click)="copyToClipboard('script')">Copy</button>
+				<div class="form-group">
+					<div class="row">
+						<input name="script" id="script"
+							value="&#x3c;script src='https://localhost:44351/api/widgets/{{selectedWidget.Id}}.js'>&#x3c;/script>"
+							readonly><button class="btn btn-light" (click)="copyToClipboard('script', selectedWidget.Id)">Copy</button>
+					</div>
 				</div>
-				<div class="row" *ngIf="selectedWidget.Name == 'box' || selectedWidget.Name == 'square'" >
-					<input id="tag"
-						value="&#x3c;element-el>&#x3c;/element-el>" readonly>
-						<button class="btn btn-light"
-						(click)="copyToClipboard('tag')">Copy</button>
+				<div class="form-group" *ngIf="selectedWidget.Name == 'box'">
+					<div class="row">
+						<input [id]="'tag'" value="&#x3c;element-el>&#x3c;/element-el>" readonly>
+						<button class="btn btn-light" (click)="copyToClipboard('tag')">Copy</button>
+					</div>
 				</div>
-				<div class="row" *ngIf="selectedWidget.Name == 'circle'" >
-					<input  id="tag"
-						value="&#x3c;circle-element>&#x3c;/circle-element>" readonly>
-						<button class="btn btn-light"
-						(click)="copyToClipboard('tag')">Copy</button>
+
+				<div class="form-group" *ngIf="selectedWidget.Name == 'circle'">
+					<div class="row">
+						<input id="tag" value="&#x3c;circle-element>&#x3c;/circle-element>" readonly>
+						<button class="btn btn-light" (click)="copyToClipboard('tag')">Copy</button>
+					</div>
 				</div>
-				<div class="row">
-					<div class="form-group">
-						<label for="colourSelect">Update colour:</label>
+				<div class="form-group">
+					<div class="row">
+						<label for="colourSelect">Update colour</label>
+					</div>
+					<div class="row">
 						<select class="form-control" id="colourSelect" [(ngModel)]="selectedWidget.Colour">
 							<option *ngFor="let colour of colours">{{colour}}</option>
 						</select>
 					</div>
 				</div>
-				<div *ngIf="selectedWidget.Name == 'circle'" class="row">
+				<div *ngIf="selectedWidget.Name == 'circle'">
 					<div class="form-group">
-						<label for="textSelect">Update text:</label>
-						<div class="form-group">
+						<div class="row">
+							<label for="textSelect">Update text</label>
+						</div>
+						<div class="row">
 							<input type="text" id="textSelect" class="form-control" [placeholder]="selectedWidget.Text"
 								[formControl]="name" (keyup)="updateText(name.value)">
 						</div>

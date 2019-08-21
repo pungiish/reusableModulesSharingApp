@@ -24,7 +24,7 @@ export class CallbackComponent implements OnInit {
 
 		const userInfo = await client.getUser();
 		const user: User = new User(userInfo.email, userInfo.given_name, userInfo.family_name, userInfo.sub, null);
-	
+		
 		this.router.navigate([targetRoute]);
 	}
 }
