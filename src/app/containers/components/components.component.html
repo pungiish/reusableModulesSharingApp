@@ -90,14 +90,14 @@
 				</div>
 				<div class="form-group" *ngIf="selectedWidget.Name == 'box'">
 					<div class="row">
-						<input [id]="'tag'" value="&#x3c;element-el>&#x3c;/element-el>" readonly>
+						<input [id]="'tag'" [value]=selectedWidget.Tag readonly>
 						<button class="btn btn-light" (click)="copyToClipboard('tag')">Copy</button>
 					</div>
 				</div>
 
 				<div class="form-group" *ngIf="selectedWidget.Name == 'circle'">
 					<div class="row">
-						<input id="tag" value="&#x3c;circle-element>&#x3c;/circle-element>" readonly>
+						<input id="tag"[value]=selectedWidget.Tag readonly>
 						<button class="btn btn-light" (click)="copyToClipboard('tag')">Copy</button>
 					</div>
 				</div>

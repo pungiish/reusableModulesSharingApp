@@ -62,23 +62,30 @@ export class ComponentsComponent implements OnInit {
 				else {
 					this.url = "https://localhost:44351/api/widgets/" + id + ".js";
 					//Check if widget already in array!
-					if (this.userWidgets.find(x => x.Colour == widget.Colour && x.Name == widget.Name && x.Text == widget.Text)) {
+				/* 	if (this.userWidgets.find(x => x.Colour == widget.Colour && x.Name == widget.Name && x.Text == widget.Text)) {
 						this.response = "Widget already exists!"
 						this.show = true;
-					}
-					else {
+					} */
+					// else {
 						console.log(widget);
 
-						widget.Id = id;
-						this.userWidgets.push(widget);
+						this.widgetService.read(this.data.user)
+							.subscribe(x => {
+								this.userWidgets = [];
+							x.forEach(widget => {
+
+								this.userWidgets.push(new Widget(widget.id, widget.tag, widget.colour, widget.name, widget.userId, widget.text))
+							});
+						});
 						this.response = "Widget successfully created!"
 						this.show = true;
-					}
+						setTimeout(() => {
+							this.show = false;
+						}, 1000);
+					//}
 				}
 			});
-		setTimeout(() => {
-			this.show = false;
-		}, 1000);
+
 
 	}
 
