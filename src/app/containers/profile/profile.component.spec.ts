@@ -3,6 +3,7 @@ import { HighlightModule } from 'ngx-highlightjs';
 import { hljsLanguages } from 'src/app/app.module';
 
 import { ProfileComponent } from './profile.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
@@ -14,8 +15,9 @@ describe('ProfileComponent', () => {
       imports: [
         HighlightModule.forRoot({
           languages: hljsLanguages
-        })
-      ]
+		}),
+		HttpClientModule
+		],
     }).compileComponents();
   }));
 

@@ -20,6 +20,8 @@ import { ComponentsComponent } from './containers/components/components.componen
 
 import { EnvironmentUrlService } from 'src/app/services/environment-url-service.service'
 import { DataService } from 'src/app/services/data-service.service'
+import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
+import { User } from './models/user-model';
 export function hljsLanguages () {
 	return [{ name: 'json', func: json }];
 }
@@ -47,7 +49,7 @@ export function hljsLanguages () {
 		}),
 		FontAwesomeModule
 	],
-	providers: [ EnvironmentUrlService, DataService ],
+	providers: [ EnvironmentUrlService, DataService, HttpClientModule],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 	bootstrap: [AppComponent]
 })

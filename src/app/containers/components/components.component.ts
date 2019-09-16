@@ -38,16 +38,21 @@ export class ComponentsComponent implements OnInit {
 	ngOnInit () {
 
 		this.authService.profile.subscribe(x => this.data.user = new User(x.email, x.name, x.family_name, x.sub, null));
+
+		if (this.data.user.Email != undefined)
+		{
 		this.data.create(this.data.user)
 		.subscribe(u => console.log(u)
 		)
-		this.widgetService.read(this.data.user)
+
+			this.widgetService.read(this.data.user)
 			.subscribe(x => {
 				x.forEach(widget => {
 					this.userWidgets.push(new Widget(widget.id, widget.tag, widget.colour, widget.name, widget.userId, widget.text))
 				});
 			});
-		console.log(this.userWidgets);
+			console.log(this.userWidgets);
+		}
 
 	}
 
@@ -75,6 +80,8 @@ export class ComponentsComponent implements OnInit {
 							x.forEach(widget => {
 
 								this.userWidgets.push(new Widget(widget.id, widget.tag, widget.colour, widget.name, widget.userId, widget.text))
+								console.log(widget);
+
 							});
 						});
 						this.response = "Widget successfully created!"

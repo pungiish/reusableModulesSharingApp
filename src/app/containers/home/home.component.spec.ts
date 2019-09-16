@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HeroComponent } from 'src/app/components/hero/hero.component';
-
 import { HomeComponent } from './home.component';
 
 describe('HomeComponent', () => {
@@ -11,7 +10,8 @@ describe('HomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [HomeComponent, HeroComponent],
-      imports: [FontAwesomeModule]
+		imports: [FontAwesomeModule],
+
     }).compileComponents();
   }));
 

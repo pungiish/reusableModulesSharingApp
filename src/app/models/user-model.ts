@@ -1,5 +1,7 @@
 import { Widget } from './widget-model';
 
+
+
 export class User {
 	Name: string;
 	Familyname: string;
