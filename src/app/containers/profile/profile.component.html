@@ -1,15 +1,10 @@
-<div class="container mt-5" *ngIf="profile">
+<div class="container mt-5" *ngIf="auth.userProfile$ | async as profile">
 	<div class="row align-items-center profile-header mb-5 text-center text-md-left justify-content-center">
 		<div class="col-md-2">
 			<img [src]="profile.picture" class="rounded-circle img-fluid profile-picture mb-3 mb-md-0" />
 		</div>
 	</div>
-	<div *ngIf="user">
-		<div class="row" *ngIf="profileJson">
-			<pre class="rounded"><code class="json" [highlight]="profileJson"></code></pre>
-		</div>
-		<div class="row" *ngIf="widgetsJson && widgetsJson.length > 2">
-			<pre class="rounded"><code class="json" [highlight]="widgetsJson"></code></pre>
-		</div>
+	<div class="row">
+		<pre class="rounded"><code class="json">{{ profile | json }}</code></pre>
 	</div>
 </div>

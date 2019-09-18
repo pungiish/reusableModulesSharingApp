@@ -36,9 +36,8 @@ export class ComponentsComponent implements OnInit {
 	}
 
 	ngOnInit () {
-
-		this.authService.profile.subscribe(x => this.data.user = new User(x.email, x.name, x.family_name, x.sub, null));
-
+		//this.authService.userProfile$.subscribe(x => this.data.user = new User(x.email, x.name, x.family_name, x.sub, null));
+		this.authService.localAuthSetup()
 		if (this.data.user.Email != undefined)
 		{
 		this.data.create(this.data.user)

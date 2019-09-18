@@ -11,20 +11,9 @@ import { User } from "src/app/models/user-model";
 	styleUrls: ['./callback.component.css']
 })
 export class CallbackComponent implements OnInit {
-	constructor (private authService: AuthService, private router: Router, private data: DataService) { }
+	constructor (private auth: AuthService) { }
 
-	async ngOnInit () {
-		const client = await this.authService.getAuth0Client();
-		const result = await client.handleRedirectCallback();
-
-		const targetRoute =
-			result.appState && result.appState.target ? result.appState.target : '/components';
-
-		this.authService.isAuthenticated.next(await client.isAuthenticated());
-
-		const userInfo = await client.getUser();
-		const user: User = new User(userInfo.email, userInfo.given_name, userInfo.family_name, userInfo.sub, null);
-		
-		this.router.navigate([targetRoute]);
+	ngOnInit () {
+		this.auth.handleAuthCallback();
 	}
 }
