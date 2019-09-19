@@ -6,6 +6,7 @@ import { WidgetService } from 'src/app/services/widget-service.service';
 import { User } from 'src/app/models/user-model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl } from '@angular/forms';
+import { tap } from 'rxjs/operators';
 
 
 @Component({
@@ -36,23 +37,20 @@ export class ComponentsComponent implements OnInit {
 	}
 
 	ngOnInit () {
-		//this.authService.userProfile$.subscribe(x => this.data.user = new User(x.email, x.name, x.family_name, x.sub, null));
-		this.authService.localAuthSetup()
-		if (this.data.user.Email != undefined)
-		{
-		this.data.create(this.data.user)
-		.subscribe(u => console.log(u)
-		)
+		this.authService.userProfile$.subscribe(x => this.data.user = new User(x.email, x.given_name, x.family_name, x.googleID, null))
+		if (this.data.user) {
+
+			this.data.create(this.data.user)
+				.subscribe(u => console.log(u)
+				)
 
 			this.widgetService.read(this.data.user)
-			.subscribe(x => {
-				x.forEach(widget => {
-					this.userWidgets.push(new Widget(widget.id, widget.tag, widget.colour, widget.name, widget.userId, widget.text))
+				.subscribe(x => {
+					x.forEach(widget => {
+						this.userWidgets.push(new Widget(widget.id, widget.tag, widget.colour, widget.name, widget.userId, widget.text))
+					});
 				});
-			});
-			console.log(this.userWidgets);
 		}
-
 	}
 
 	apply () {
@@ -66,16 +64,16 @@ export class ComponentsComponent implements OnInit {
 				else {
 					this.url = "https://localhost:44351/api/widgets/" + id + ".js";
 					//Check if widget already in array!
-				/* 	if (this.userWidgets.find(x => x.Colour == widget.Colour && x.Name == widget.Name && x.Text == widget.Text)) {
-						this.response = "Widget already exists!"
-						this.show = true;
-					} */
+					/* 	if (this.userWidgets.find(x => x.Colour == widget.Colour && x.Name == widget.Name && x.Text == widget.Text)) {
+							this.response = "Widget already exists!"
+							this.show = true;
+						} */
 					// else {
-						console.log(widget);
+					console.log(widget);
 
-						this.widgetService.read(this.data.user)
-							.subscribe(x => {
-								this.userWidgets = [];
+					this.widgetService.read(this.data.user)
+						.subscribe(x => {
+							this.userWidgets = [];
 							x.forEach(widget => {
 
 								this.userWidgets.push(new Widget(widget.id, widget.tag, widget.colour, widget.name, widget.userId, widget.text))
@@ -83,11 +81,11 @@ export class ComponentsComponent implements OnInit {
 
 							});
 						});
-						this.response = "Widget successfully created!"
-						this.show = true;
-						setTimeout(() => {
-							this.show = false;
-						}, 1000);
+					this.response = "Widget successfully created!"
+					this.show = true;
+					setTimeout(() => {
+						this.show = false;
+					}, 1000);
 					//}
 				}
 			});
@@ -119,7 +117,7 @@ export class ComponentsComponent implements OnInit {
 		let wid: Widget;
 		if (widget != undefined) {
 			this.selectedWidget = widget;
-			wid = new Widget(widget.Id, widget.Tag,  widget.Colour, widget.Name, widget.UserId, widget.Text);
+			wid = new Widget(widget.Id, widget.Tag, widget.Colour, widget.Name, widget.UserId, widget.Text);
 
 		}
 		this.selectedOption = null;

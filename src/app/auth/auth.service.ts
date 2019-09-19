@@ -26,11 +26,7 @@ export class AuthService {
   // from: Convert that resulting promise into an observable
   isAuthenticated$ = this.auth0Client$.pipe(
     concatMap((client: Auth0Client) => from(client.isAuthenticated())),
-	  tap(res => {
-		  console.log(res);
-		  this.loggedIn = res
-
-	  })
+    tap(res => this.loggedIn = res)
   );
   handleRedirectCallback$ = this.auth0Client$.pipe(
     concatMap((client: Auth0Client) => from(client.handleRedirectCallback()))
@@ -41,9 +37,7 @@ export class AuthService {
   // Create a local property for login status
   loggedIn: boolean = null;
 
-	constructor (private router: Router) {
-
-  }
+  constructor(private router: Router) { }
 
   // When calling, options can be passed if desired
   // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#getuser
@@ -54,13 +48,7 @@ export class AuthService {
     );
   }
 
-	localAuthSetup () {
-		this.userProfile$.pipe(x => {
-			console.log(x)
-			return x;
-		}
-		)
-
+  localAuthSetup() {
     // This should only be called on app initialization
     // Set up local authentication streams
     const checkAuth$ = this.isAuthenticated$.pipe(
@@ -81,7 +69,7 @@ export class AuthService {
     });
   }
 
-  login(redirectPath: string = '/components') {
+  login(redirectPath: string = '/') {
     // A desired redirect path can be passed to login method
     // (e.g., from a route guard)
     // Ensure Auth0 client instance exists
